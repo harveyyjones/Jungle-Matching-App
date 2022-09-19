@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "667710173775",
+    "project_id": "jungle-f3e8d",
+    "storage_bucket": "jungle-f3e8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667710173775:android:13bb40e75eb90d17cbb03a",
+        "android_client_info": {
+          "package_name": "com.rysesoft.chat_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667710173775-68vrq5unlo3g8sbsi8493b5cui778c8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzA0BX2dqEFRx3JeT8vEfpXhlI5ndz1VU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667710173775-68vrq5unlo3g8sbsi8493b5cui778c8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
