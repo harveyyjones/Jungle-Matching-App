@@ -1,3 +1,4 @@
+import 'package:chat_new/admin_test_environment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,6 +10,9 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => print("go button pressed"),
+      onLongPress: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => TestEnvironment(),
+      )),
       child: Container(
         height: 145.h,
         width: 300.w,
@@ -20,7 +24,8 @@ class CustomButton extends StatelessWidget {
             image: AssetImage(backgroundImage),
           ),
         ),
-        child: Text('Go!', style: TextStyle(color: Colors.white, fontSize: 26)),
+        child:
+            Text('Go!', style: TextStyle(color: Colors.white, fontSize: 26.sp)),
       ),
     );
   }

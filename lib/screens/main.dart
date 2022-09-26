@@ -1,10 +1,10 @@
+import 'package:chat_new/screens/landing.dart';
 import 'package:chat_new/screens/login_new.dart';
 import 'package:chat_new/screens/register.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../flash_chat_to_migrate/flash_chat_to_apply_later/welcome_screen.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(720, 1280),
+      designSize: const Size(
+        720.0,
+        1280.0,
+      ),
       //deneme1
       builder: (context, child) {
         return MaterialApp(
@@ -28,10 +31,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.light(),
           initialRoute: '/',
           routes: {
-            '/': (context) => WelcomeScreen(),
+            '/': (context) => LandingPage(),
             '/register': (context) => const RegisterPage(),
             '/login': ((context) => const LoginPage())
-      
           },
         );
       },

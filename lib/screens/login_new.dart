@@ -21,8 +21,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  getScreenInfos() {
+    ScreenUtil? fuck = ScreenUtil();
+    print('Device width dp:${fuck!.screenWidth}'); //Device width
+    print('Device height dp:${fuck.screenHeight}'); //Device height
+    print(
+        'Ratio of actual width dp to design draft px:${ScreenUtil().scaleWidth}');
+    print(
+        'Ratio of actual height dp to design draft px:${ScreenUtil().scaleHeight}');
+    print(
+        'Device pixel density:${ScreenUtil().pixelRatio}'); //Device pixel density
+    print(
+        'Bottom safe zone distance dp:${ScreenUtil().bottomBarHeight}'); //Bottom safe zone distance，suitable for buttons with full screen
+    print(
+        'Status bar height px:${ScreenUtil().statusBarHeight}dp'); //Status bar height , Notch will be higher Unit px
+    print(
+        'Ratio of actual width dp to design draft px:${ScreenUtil().scaleWidth}');
+    print(
+        'Ratio of actual height dp to design draft px:${ScreenUtil().scaleHeight}');
+    print(
+        'The ratio of font and width to the size of the design:${ScreenUtil().scaleWidth * ScreenUtil().pixelRatio!.toDouble()}');
+    print(
+        'The ratio of  height width to the size of the design:${ScreenUtil().scaleHeight * ScreenUtil().pixelRatio!.toDouble()}');
+    print('System font scaling:${ScreenUtil().textScaleFactor}');
+    print('0.5 times the screen width:${0.5.w}');
+    print('0.5 times the screen height:${0.5.h}');
+  }
+
   @override
   void initState() {
+    getScreenInfos();
     super.initState();
     auth = FirebaseAuth.instance;
   }
@@ -50,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
         height: double.infinity,
         child: Stack(
           children: [
-            MyWidget(),
+            InkWell(onTap: () => getScreenInfos(), child: MyWidget()),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,9 +91,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            filter: ImageFilter.blur(sigmaX: 5.w, sigmaY: 5.h),
                             child: Container(
-                              width: size.width.w * 0.8,
+                              width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 color: Colors.white.withOpacity(0.1),
@@ -75,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               padding: EdgeInsets.only(
-                                  top: 20.h, right: 20.w, left: 20.w),
+                                  top: 240.h, right: 20.w, left: 20.w),
                               child: _buildForm(context),
                             ),
                           ),
@@ -85,7 +113,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Column(
                     children: [
-                      SizedBox(height: 16.h),
+                      SizedBox(
+                        height: 16.h,
+                      ),
                       _buildForgotPassword(context),
                       SizedBox(height: 16.h),
                       buildNoAccount(context),
@@ -109,30 +139,13 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(height: 16.h),
             _buildEmailField(),
-            SizedBox(height: 16.h),
+            SizedBox(
+              height: 16.h,
+            ),
             _buildPasswordField(),
             SizedBox(height: 16.h),
             _buildSignInButton(context),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
-                    },
-                  ));
-                },
-                child: Text("shortcut")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return HomeForGirls();
-                    },
-                  ));
-                },
-                child: Text("shortcut for girls")),
             const OrDivider(),
             Center(
               child: Row(
@@ -216,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
   callSnackbar(String error, [Color? color, VoidCallback? onVisible]) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
       //padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       backgroundColor: color ?? Colors.red,
       duration: Duration(milliseconds: 500),
@@ -321,7 +334,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () async {
         await signInEmailandpassword();
       },
-      child: Text("Sign Up",
+      child: Text("Sign In",
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w400,
@@ -331,23 +344,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future signInEmailandpassword() async {
-    if (emailController.text.isEmpty) {
-      callSnackbar('E-mail alanı boş bırakılamaz!');
-      return '';
-    } else if (passwordController.text.isEmpty) {
-      callSnackbar('Şifre alanı boş bırakılamaz!');
-      return '';
-    } else {
-      if (emailController.text.contains("*")) {
-        callSnackbar("Geçersiz e-mail!");
-        return '';
-      } else if (2 == 3) {
-        callSnackbar('Bu e-mail için kullanıcı bulunamadı!');
-        return '';
-      } else if (2 == 3) {
-        callSnackbar('Invalid password!');
-        return '';
+    try {
+      var newUser = await auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      if (newUser != null) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ));
       }
+    } catch (e) {
+      print(e);
     }
   }
 }

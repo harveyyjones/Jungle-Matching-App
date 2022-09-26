@@ -33,7 +33,7 @@ class _CarouselSliderListState extends State<CarouselSliderList> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 50.w, right: 50.w, top: 50.h),
+                            EdgeInsets.only(left: 50.w, right: 50.w, top: 70.h),
                         child: InkWell(
                           onTap: () =>
                               Navigator.of(context).push(MaterialPageRoute(
@@ -53,7 +53,8 @@ class _CarouselSliderListState extends State<CarouselSliderList> {
                         child: Text(
                           widget.users[index]!.name.toString() +
                               widget.users[index]!.surname.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 36),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 36.sp),
                         ),
                       ),
                       Row(
@@ -76,6 +77,7 @@ class _CarouselSliderListState extends State<CarouselSliderList> {
                               ))
                         ],
                       ),
+                     
                     ],
                   );
                 },

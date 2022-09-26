@@ -1,10 +1,10 @@
 import 'package:chat_new/screens/stories_screen.dart';
 import 'package:chat_new/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../screens/messages/message_box_screen.dart';
 import '../../screens/settings_screen.dart';
-
 
 class BottomBar extends StatefulWidget {
   List? users;
@@ -22,8 +22,7 @@ class BottomBarState extends State<BottomBar> {
     HomePage(),
     Stories(),
     MessageScreen(
-     users: [],
-    
+      usersLastMessage: [],
     ),
     Settingsscreen()
   ];
@@ -51,36 +50,36 @@ class BottomBarState extends State<BottomBar> {
 
       unselectedItemColor: Color.fromARGB(255, 255, 255, 255),
       selectedItemColor: Color.fromARGB(255, 255, 255, 255),
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.home, size: 67),
+          activeIcon: Icon(Icons.home, size: 67.sp),
           icon: Icon(
             Icons.home,
-            size: 40,
+            size: 40.sp,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.search, size: 67),
+          activeIcon: Icon(Icons.search, size: 67.sp),
           icon: Icon(
             Icons.search,
-            size: 40,
+            size: 40.sp,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.message, size: 67),
+          activeIcon: Icon(Icons.message, size: 67.sp),
           icon: Icon(
             Icons.message,
-            size: 40,
+            size: 40.sp,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
-          activeIcon: Icon(Icons.settings, size: 67),
+          activeIcon: Icon(Icons.settings, size: 67.sp),
           icon: Icon(
             Icons.settings,
-            size: 40,
+            size: 40.sp,
           ),
           label: '',
         ),

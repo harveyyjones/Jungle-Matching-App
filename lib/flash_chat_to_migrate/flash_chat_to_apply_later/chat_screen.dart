@@ -10,7 +10,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _fireStore = FirebaseFirestore.instance;
+  final db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   User? loggedInUser;
   String? messageText;
@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
   // }
 
   getMessagesFromStream() async {
-    await for (var snapshot in _fireStore.collection("messages").snapshots()) {
+    await for (var snapshot in db.collection("messages").snapshots()) {
       for (var messages in snapshot.docs) {
         print(messages.data());
       }
@@ -73,11 +73,11 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             StreamBuilder(
-              stream: _fireStore.collection("messages").snapshots(),
+              stream: db.collection("messages").snapshots(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 List<Text> messageWidgets = [];
                 if (snapshot.hasData) {
-                  final messages = snapshot.data.docs;
+                  final messages = snapshot.data.docs; // Koleksiyonun altındaki her bir mesajı liste olarak alır.
                   for (var message in messages) {
                     final messageText = message.data()["text"];
                     final messageSender = message.data()["sender"];
@@ -108,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await _fireStore.collection("messages").add(
+                      await db.collection("messages").add(
                           {"text": messageText, "sender": loggedInUser!.email});
                     },
                     child: const Text(

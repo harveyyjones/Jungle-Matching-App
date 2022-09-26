@@ -14,9 +14,9 @@ class MessagesInfos {
       print("Mesaj  kutusundaki kısmındaki veriler alındı.");
       print(users);
       MessageScreen(
-        users: [users],
+        usersLastMessage: [users],
       );
-        return users;
+      return users;
     });
   }
 }

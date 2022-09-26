@@ -94,8 +94,6 @@ class _RegisterPageState extends State<RegisterPage> {
           SizedBox(height: 16.h),
           _buildPasswordField(),
           SizedBox(height: 16.h),
-          _buildPasswordFieldAgain(),
-          SizedBox(height: 16.h),
           _buildRegisterInButton(context),
         ],
       ),
@@ -220,10 +218,6 @@ class _RegisterPageState extends State<RegisterPage> {
             validator: (value) {
               if (value!.isNotEmpty) {
                 if (value.length > 6) {
-                  if (value != passwordController_again.text) {
-                    callSnackbar("Şifreler aynı değil!");
-                    return '';
-                  }
                 } else {
                   callSnackbar("Şifreniz minimum 6 haneli olmalıdır.");
                   return '';
@@ -423,12 +417,13 @@ class _RegisterPageState extends State<RegisterPage> {
       user = userCredential.user;
       print(user);
       await user!.updateDisplayName(nameController.text);
+     
       await user.reload();
       user = auth.currentUser;
       callSnackbar("Kayıt başarılı !", Colors.green, () {
-        Navigator.pushNamedAndRemoveUntil(context, '/second', (_) {
-          return true;
-        });
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ));
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-exists' ||
